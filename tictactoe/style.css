@@ -1,0 +1,12 @@
+.blankspace {
+    width: 100px;
+    border-radius: 10px;
+}
+button{
+    background-color: #09b2f5;
+    color: white;
+    padding: 15px 25px;
+    margin-top: 20px;
+    border-radius: 30px;
+    border-color: white;
+}
