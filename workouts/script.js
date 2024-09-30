@@ -53,13 +53,13 @@ function renderexcercises() {
             let Sets = choice[i].sets;
             
             function clicked(){
+                button.style.display = 'none'
                 seconds = 0;
                 minutes = 0;
                 const Timer = document.createElement('p')
                 Timer.className = 'excercisetext'
                 excercisediv.appendChild(Timer)
                 const timerinterval = setInterval(timer, 1000);
-                
                 function timer() {
                     if (seconds < 10){
                         Timer.textContent = 'Rest Time: 0' + minutes + ':0' + seconds;
@@ -80,6 +80,7 @@ function renderexcercises() {
                             sets.textContent = Sets
                             Timer.textContent = ''
                             console.log(Sets)
+                            button.style.display = 'block'
                         }
                     }
                 }
