@@ -1,0 +1,39 @@
+h1 {
+    color: rgb(0, 0, 0);
+}
+#title{
+    text-align: center;
+}
+#buttons {
+    text-align: center;
+}
+button {
+    border-radius: 10px;
+    background-color: rgba(6, 145, 39, 0.788);
+    color: rgb(255, 255, 255);
+    border-color: rgb(35, 116, 37);
+    width: 15%;
+    height: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+#setcomplete{
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.excercisetext {
+    text-align: center;
+    font-family: copperplate;
+    font-size: x-large;
+}
+
+.excercisename {
+    text-align: center;
+    font-family: copperplate;
+    font-size: xx-large;
+}
