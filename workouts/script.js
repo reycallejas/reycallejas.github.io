@@ -78,7 +78,7 @@ function renderexcercises() {
                             rendernextexcercise()
                         }else{
                             Sets--
-                            sets.textContent = Sets
+                            sets.textContent = 'Sets: ' + Sets
                             Timer.textContent = ''
                             console.log(Sets)
                             button.style.display = 'block'
