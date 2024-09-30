@@ -9,9 +9,9 @@ h1 {
 }
 button {
     border-radius: 10px;
-    background-color: rgba(6, 145, 39, 0.788);
+    background-color: rgba(223, 197, 28, 0.788);
     color: rgb(255, 255, 255);
-    border-color: rgb(35, 116, 37);
+    border-color: rgb(0, 0, 0);
     width: 15%;
     height: 50px;
     font-family: 'Courier New', Courier, monospace;
@@ -24,6 +24,7 @@ button {
     font-family: 'Courier New', Courier, monospace;
     font-size: larger;
     font-weight: bolder;
+    background-color: rgba(0, 163, 0, 0.852);
 }
 
 .excercisetext {
@@ -36,4 +37,7 @@ button {
     text-align: center;
     font-family: copperplate;
     font-size: xx-large;
+}
+body{
+    background-color: rgb(204, 204, 204);
 }
