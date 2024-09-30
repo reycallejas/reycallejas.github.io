@@ -54,6 +54,7 @@ function renderexcercises() {
             
             function clicked(){
                 button.style.display = 'none'
+                
                 seconds = 0;
                 minutes = 0;
                 const Timer = document.createElement('p')
