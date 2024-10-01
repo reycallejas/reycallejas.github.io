@@ -1,0 +1,31 @@
+button {
+    width: 30px;
+    margin: auto;
+    margin-bottom: 2px;
+}
+
+.fuckyou {
+    width: 65px;
+}
+
+#clear {
+    width: 65px;
+    background-color: orange;
+}
+
+#displayy {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 125px;
+    padding-left: 10px;
+    color: rgb(0, 0, 0);
+    background: rgb(255, 254, 254);
+}
+
+#calc {
+    background-color: rgb(195, 195, 195);
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 1px;
+    width: 140px;
+}
