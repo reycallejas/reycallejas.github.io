@@ -30,31 +30,37 @@ for (let i=0;i<10;i++){
 }
 
 
-
 plus.onclick = () => {
-    string = '+' + string + ','
-    displaystring = displaystring + ' + '
-    console.log(string)
-    answer = false
+    if (string[string.length - 1] != ','){
+        string = '+' + string + ','
+        displaystring = displaystring + ' + '
+        console.log(string)
+        answer = false
+    }
 }
 
 minus.onclick = () => {
+    if (string[string.length - 1] != ','){
     string = '-' + string + ','
     displaystring = displaystring + ' - '
     answer = false
+    }
 }
 
 times.onclick = () => {
+    if (string[string.length - 1] != ','){
     string = '*' + string + ','
     displaystring = displaystring + ' x '
     answer = false
+    }
 }
 
 divide.onclick = () => {
+    if (string[string.length - 1] != ','){
     string = '/' + string + ','
     displaystring = displaystring + ' / '
     answer = false
-    
+    }
 }
 
 equals.onclick = () => {
@@ -72,14 +78,15 @@ function eval(){
     let n1 = Number(numobj[0])
     let n2 = Number(numobj[1])
     if (string[0] == '+'){
-        return(n1 + n2)
+        result = n1 + n2
     }else if(string[0] == '-'){
-        return(n1 - n2)
+        result = n1 - n2
     }else if(string[0] == '*'){
-        return(n1 * n2)
+        result = n1 * n2
     }else if(string[0] == '/'){
-        return(n1 / n2)
+        result = n1 / n2
     }
+    return result.toFixed(10)
 }
 
 const interval = setInterval(render,100)
