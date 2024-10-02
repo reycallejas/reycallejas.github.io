@@ -86,7 +86,11 @@ function eval(){
     }else if(string[0] == '/'){
         result = n1 / n2
     }
-    return result.toFixed(10)
+    if (result % 1 != 0){
+        return result.toFixed(10)
+    }else{
+        return result
+    }
 }
 
 const interval = setInterval(render,100)
