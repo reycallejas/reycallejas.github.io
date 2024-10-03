@@ -51,9 +51,11 @@ function loadata(key) {
 }
 
 function form(data) {
+    const title = document.createElement('h1')
+    title.textContent = "Track today's workout."
+    
     const showdiv = document.getElementById('showdiv')
-
-
+    
     selectdiv.style.display = 'none';
     const weightq = document.createElement('p')
     weightq.textContent = 'Weight (kg):'
