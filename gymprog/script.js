@@ -100,6 +100,7 @@ function form(data) {
     buttondiv.appendChild(showbutton)
 
     showbutton.onclick = () => {
+        showdiv.innerHTML = ''
         let weightstring = 'Weight: '
         for (i = 0; i < data.weight.length; i++){
             if (i == (data.weight.length - 1)){
