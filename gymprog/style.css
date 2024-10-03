@@ -1,0 +1,62 @@
+.exercise {
+    background-color: rgba(178, 178, 178, 0.491);
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 0px;
+    margin: 10px;
+    margin-right: 1px;
+    width: 30%;
+    height: 50%;
+    font-size: 50%;
+    display: inline-block;
+    vertical-align: top;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-style: ridge;
+}
+
+img {
+ height: 20vw;
+ max-height: fit-content;
+ width: 100%;
+
+
+}
+
+#form {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+input{ 
+    border-radius: 10px;
+}
+
+button {
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 60px;
+}
+
+#submitbutton {
+    background-color: #46f74cc8;
+}
+
+#showbutton {
+    width: 80px;
+    background-color: rgb(244, 183, 60);
+}
+
+#backbutton {
+    background-color: rgba(252, 100, 100, 0.814);
+}
+
+#buttons {
+    text-align: center;
+}
+
+#showdiv {
+    text-align: center;
+}
