@@ -53,6 +53,7 @@ function loadata(key) {
 function form(data) {
     const title = document.createElement('h1')
     title.textContent = "Track today's workout."
+    formdiv.appendChild(title)
     
     const showdiv = document.getElementById('showdiv')
     
