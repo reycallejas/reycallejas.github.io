@@ -6,7 +6,7 @@ const ctx = document.getElementById('chart').getContext('2d');
 
 let chart;
 
-// localStorage.removeItem('squats')
+localStorage.removeItem('squats')
 
 benchdiv.onmouseover = () => {
     benchdiv.style.background = '#e3c428ba';
@@ -100,7 +100,9 @@ function form(data) {
         formdiv.innerHTML = '';
         buttondiv.innerHTML = '';
         showdiv.innerHTML = '';
-        chart.destroy();
+        if(chart){
+            chart.destroy();
+        }
     }
 
     const showbutton = document.createElement('button')
@@ -181,7 +183,9 @@ function form(data) {
             if (weightform.value && repsform.value && setsform.value){
                 formdiv.innerHTML = 'Submitted.'
                 showdiv.innerHTML = '';
-                chart.destroy()
+                if(chart){
+                    chart.destroy()
+                }
                 data.weight.push(weightform.value);
                 data.reps.push(repsform.value);
                 data.sets.push(setsform.value);
@@ -230,6 +234,11 @@ testdata = {
     reps: [8,12,8,12,8,8],
     day: [1,2,3,4,5,6]
 }
+
+// console.log(testdata.weight)
+// testdata.weight.unshift(2)
+// testdata.weight.push(7)
+// console.log(testdata.weight)
 
 // const chart = new Chart(ctx, {
 //     type: 'line',
