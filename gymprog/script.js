@@ -2,6 +2,7 @@ const benchdiv = document.getElementById('benchpress');
 const squatdiv = document.getElementById('squats');
 const selectdiv = document.getElementById('select');
 const formdiv = document.getElementById('form');
+const legpressdiv = document.getElementById('legpress')
 const ctx = document.getElementById('chart').getContext('2d');
 
 let chart;
@@ -20,6 +21,13 @@ squatdiv.onmouseover = () => {
 }
 squatdiv.onmouseleave = () => {
     squatdiv.style.background = 'rgba(178, 178, 178, 0.491)';
+}
+
+legpressdiv.onmouseover = () => {
+    legpressdiv.style.background = '#e3c428ba';
+}
+legpressdiv.onmouseleave = () => {
+    legpressdiv.style.background = 'rgba(178, 178, 178, 0.491)';
 }
 
 benchdiv.onclick = async() => {
@@ -216,7 +224,13 @@ squatdiv.onclick = async() => {
     localStorage.setItem('squats',JSON.stringify(data))
 }
 
-
+legpressdiv.onclick = async() => {
+    let data = await loadata('legpress');
+    console.log(data)
+    data = await form(data)
+    console.log(data)
+    localStorage.setItem('legpress',JSON.stringify(data))
+}
 
 
 
