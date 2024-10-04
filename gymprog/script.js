@@ -231,11 +231,6 @@ testdata = {
     day: [1,2,3,4,5,6]
 }
 
-// console.log(testdata.weight)
-// testdata.weight.unshift(2)
-// testdata.weight.push(7)
-// console.log(testdata.weight)
-
 // const chart = new Chart(ctx, {
 //     type: 'line',
 //     data: {
