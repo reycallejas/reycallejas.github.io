@@ -2,6 +2,9 @@ const benchdiv = document.getElementById('benchpress');
 const squatdiv = document.getElementById('squats');
 const selectdiv = document.getElementById('select');
 const formdiv = document.getElementById('form');
+const ctx = document.getElementById('chart').getContext('2d');
+
+let chart;
 
 // localStorage.removeItem('squats')
 
@@ -37,7 +40,8 @@ function loadata(key) {
             return {
                 weight: [],
                 reps: [],
-                sets: []
+                sets: [],
+                day: []
             }
         }
         return(JSON.parse(data));
@@ -45,7 +49,8 @@ function loadata(key) {
         return {
             weight: [],
             reps: [],
-            sets: []
+            sets: [],
+            day: []
         }
     }
 }
@@ -54,9 +59,9 @@ function form(data) {
     const title = document.createElement('h1')
     title.textContent = "Track today's workout."
     formdiv.appendChild(title)
-    
     const showdiv = document.getElementById('showdiv')
-    
+
+
     selectdiv.style.display = 'none';
     const weightq = document.createElement('p')
     weightq.textContent = 'Weight (kg):'
@@ -95,6 +100,7 @@ function form(data) {
         formdiv.innerHTML = '';
         buttondiv.innerHTML = '';
         showdiv.innerHTML = '';
+        chart.destroy();
     }
 
     const showbutton = document.createElement('button')
@@ -103,6 +109,7 @@ function form(data) {
     buttondiv.appendChild(showbutton)
 
     showbutton.onclick = () => {
+        console.log(data)
         showdiv.innerHTML = ''
         let weightstring = 'Weight: '
         for (i = 0; i < data.weight.length; i++){
@@ -139,6 +146,27 @@ function form(data) {
         const setext = document.createElement('p')
         setext.textContent = setstring
         showdiv.appendChild(setext)
+
+        const weightGraphButton = document.createElement('button')
+        weightGraphButton.textContent = 'Weight Graph'
+        weightGraphButton.id = 'weightGraphButton'
+        weightGraphButton.onclick = () => {
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.day,
+                    datasets: [{
+                        label: 'Weight',
+                        data: data.weight,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+            });
+        }
+        showdiv.append(weightGraphButton)
+
     }
 
     const submit = document.createElement('button');
@@ -153,9 +181,17 @@ function form(data) {
             if (weightform.value && repsform.value && setsform.value){
                 formdiv.innerHTML = 'Submitted.'
                 showdiv.innerHTML = '';
+                chart.destroy()
                 data.weight.push(weightform.value);
                 data.reps.push(repsform.value);
                 data.sets.push(setsform.value);
+
+                if (data.day.length == 0){
+                    data.day.push(1)
+                }else{
+                    data.day.push(data.day[data.day.length - 1] + 1)
+                }
+
                 weightform.value = '';
                 setsform.value = '';
                 repsform.value = '';
@@ -188,16 +224,29 @@ squatdiv.onclick = async() => {
 
 
 
-
-
-
 testdata = {
-    weight: [5,6],
-    sets: 3,
-    reps: 10
+    weight: [80,80,85,85,90,95],
+    sets: [1,1,1,2,1,2],
+    reps: [8,12,8,12,8,8],
+    day: [1,2,3,4,5,6]
 }
 
-console.log(testdata.weight)
-testdata.weight.unshift(2)
-testdata.weight.push(7)
-console.log(testdata.weight)
+// console.log(testdata.weight)
+// testdata.weight.unshift(2)
+// testdata.weight.push(7)
+// console.log(testdata.weight)
+
+// const chart = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//         labels: testdata.day,
+//         datasets: [{
+//             label: 'Weight',
+//             data: testdata.weight,
+//             backgroundColor: 'rgba(255, 99, 132, 0.2)',
+//             borderColor: 'rgba(255, 99, 132, 1)',
+//             borderWidth: 1
+//         }]
+//     }
+// });
+

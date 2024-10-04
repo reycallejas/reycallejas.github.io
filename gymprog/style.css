@@ -60,3 +60,14 @@ button {
 #showdiv {
     text-align: center;
 }
+
+#weightGraphButton {
+    width: auto;
+    background-color: #000000;
+    color: white;
+}
+
+#graphdiv {
+    display: flex;
+    justify-content: center;
+}
