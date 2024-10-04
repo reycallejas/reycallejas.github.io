@@ -6,7 +6,7 @@ const ctx = document.getElementById('chart').getContext('2d');
 
 let chart;
 
-localStorage.removeItem('squats')
+// localStorage.removeItem('squats')
 
 benchdiv.onmouseover = () => {
     benchdiv.style.background = '#e3c428ba';
