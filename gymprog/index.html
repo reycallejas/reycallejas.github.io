@@ -3,40 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="select">
-
-        <div class="exercise" id="benchpress">
-            <h1>Benchpress</h1>
-            <img src="https://i.pinimg.com/564x/c6/4e/a9/c64ea9a4aeec242e709e0ee4f0e06c2e.jpg" alt="">
-            <p>The bench press is a compound exercise that targets the muscles of the upper body. It involves lying on a bench and pressing weight upward using either a barbell or a pair of dumbbells.</p>
-        </div>
-        <div class="exercise" id="squats">
-            <h1>Squats</h1>
-            <img src="https://i.pinimg.com/564x/ba/7e/76/ba7e76ff2720212bc455b21888291991.jpg" alt="">
-            <p>An exercise in which a standing person lowers to a position in which the torso is erect and the knees are deeply bent and then rises to an upright position.</p>
-        </div>
-        <div class="exercise" id="legpress">
-            <h1>Legpress</h1>
-            <img src="https://i.pinimg.com/564x/9d/06/86/9d06860d5310b8d2d09c79cc5fb096ef.jpg" alt="">
-            <p>The leg press is a compound weight training exercise in which the individual pushes a weight or resistance away from them using their legs..</p>
-        </div>
-
-    </div>
-
-    <div id="form"></div>
-    <div id="buttons"></div>
-    
-    <div id="showdiv"></div>
-
-    <div id="graphdiv">
-    <canvas id="chart" width="500" height="300"></canvas>
-    </div>
-
+    <title>Gym Progress Tracker</title>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5', // Indigo
+                        secondary: '#10B981', // Emerald
+                        accent: '#F97316', // Orange
+                        dark: '#1F2937', // Gray-800
+                        light: '#F9FAFB', // Gray-50
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Include Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Custom styles that can't be handled with Tailwind -->
+    <style>
+        canvas {
+            width: 95%;
+            max-width: 100%;
+            max-height: 300px;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .history-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+        }
+    </style>
+        }
+    </style>
+        }
+    </style>
+    <style>
+        /* Splash Screen Animations */
+        @keyframes textFadeScaleIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes splashFadeOut {
+            0% { opacity: 1; }
+            99% { opacity: 0; } /* Keep it slightly visible during fade */
+            100% { opacity: 0; visibility: hidden; } /* Fully hide at the end */
+        }
+        @keyframes landingFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #splash-screen {
+            animation: splashFadeOut 1s ease-out 3s forwards; /* Start fade out after 3s */
+        }
+        #splash-text {
+            animation: textFadeScaleIn 1.5s ease-out 0.5s forwards; /* Start fade in after 0.5s */
+            opacity: 0; /* Initially hidden */
+        }
+        #landing-page.initial-hidden { /* Use a class to manage initial state */
+             opacity: 0;
+             animation: landingFadeIn 1s ease-in 3s forwards; /* Start fade in when splash fades out */
+        }
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 text-gray-200 font-sans min-h-screen">
+    <!-- Header Removed -->
+
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-indigo-900 flex items-center justify-center z-50">
+        <h1 id="splash-text" class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-red-400 px-4">
+            Every step matters
+        </h1>
+    </div>
+
+    <!-- Landing Page (Initially Hidden by CSS animation/opacity) -->
+    <div id="landing-page" class="initial-hidden container mx-auto px-4 py-20 flex flex-col items-center justify-center min-h-screen"> 
+        <h2 class="text-5xl font-extrabold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-red-400">Choose Your Focus</h2> 
+        <div class="grid md:grid-cols-2 gap-10 w-full max-w-3xl">
+            <!-- Exercise Tracking Card -->
+            <div id="goto-exercise-tracker" class="landing-card bg-gray-800/60 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-purple-500/50 cursor-pointer transition duration-300 transform hover:scale-105 hover:border-purple-400 hover:shadow-purple-500/30">
+                <h3 class="text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">Exercise Tracking</h3>
+                <p class="text-center text-gray-400">Log workouts, track reps & weight, visualize progress.</p>
+            </div>
+            <!-- Body Metrics Card -->
+            <div id="goto-body-metrics" class="landing-card bg-gray-800/60 backdrop-blur-md rounded-xl shadow-2xl p-8 border border-emerald-500/50 cursor-pointer transition duration-300 transform hover:scale-105 hover:border-emerald-400 hover:shadow-emerald-500/30">
+                <h3 class="text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-4">Body Metrics</h3>
+                <p class="text-center text-gray-400">Record weight, body fat %, muscle mass, and see trends.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Content (Initially Hidden) -->
+    <main id="app-content" class="container mx-auto px-4 py-10 max-w-7xl hidden">
+        <!-- Exercise Tracking Section -->
+        <section id="exercise-tracker" class="bg-gray-800/60 backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-8 mb-10 border border-gray-700/50 hidden">
+             <button class="back-button absolute top-4 right-6 text-sm text-gray-400 hover:text-gray-100 transition duration-200">&larr; Back to Home</button>
+             <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 border-b-2 border-purple-500/50 pb-3 mb-8">Exercise Tracking</h2>
+            
+             <form id="exercise-form" class="mb-10">
+                <!-- Exercise Selection Grid -->
+                <div class="mb-6">
+                    <label class="block text-lg font-semibold text-purple-300 mb-3">Select or Add Exercise:</label>
+                    <div id="exercise-selection-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-4">
+                        <!-- Exercise cards will be populated here by JS -->
+                        <!-- Add New Exercise Card Placeholder (will be added by JS) -->
+                    </div>
+                    <input type="hidden" id="selected-exercise-name">
+                </div>
+
+                 <!-- New Exercise Name Input (Initially Hidden) -->
+                 <div id="new-exercise-group" style="display: none;" class="mb-6 p-4 bg-gray-700/30 rounded-lg border border-gray-600">
+                    <label for="exercise-name-new" class="block text-sm font-medium text-purple-300 mb-2">New Exercise Name:</label>
+                    <input type="text" id="exercise-name-new" class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-100 placeholder-gray-400">
+                 </div>
+
+                <!-- Reps and Weight Inputs -->
+                <div class="grid md:grid-cols-2 gap-6">
+                     <!-- Max Reps Input -->
+                    <div class="mb-4">
+                        <label for="exercise-reps" class="block text-sm font-medium text-purple-300 mb-2">Max Reps:</label>
+                        <input type="number" id="exercise-reps" min="0" required class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                    
+                    <!-- Max Weight Input -->
+                    <div class="mb-4">
+                        <label for="exercise-weight" class="block text-sm font-medium text-purple-300 mb-2">Max Weight (kg/lbs):</label>
+                        <input type="number" id="exercise-weight" min="0" step="0.1" required class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="mt-5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75">
+                    Add / Update Exercise
+                </button>
+            </form>
+
+            <!-- Tracked Exercises List -->
+            <h3 class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-5">Tracked Exercises</h3>
+            <div id="exercise-list" class="space-y-4">
+                <!-- Exercise entries will be dynamically added here -->
+            </div>
+
+            <!-- Progress Visualization -->
+            <h3 class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mt-10 mb-5">Progress Visualization</h3>
+            <div class="bg-gray-800/80 rounded-lg shadow-inner p-6 min-h-[450px] relative border border-gray-700/50">
+                <div class="mb-5 flex items-center gap-4">
+                    <label for="exercise-select-chart" class="block text-sm font-medium text-purple-300">Select Exercise:</label>
+                    <select id="exercise-select-chart" class="px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-100">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <canvas id="exercise-chart"></canvas>
+                <button id="show-exercise-table-btn" class="mt-5 bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700 text-white font-medium py-2 px-5 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-75">
+                    Show Full History
+                </button>
+                <div id="exercise-table-container" class="mt-5 hidden rounded-lg overflow-hidden bg-gray-700/50 border border-gray-600/50 shadow-lg mx-auto">
+                    <!-- Exercise history table will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent my-12"></div>
+
+        <!-- Body Metrics Section -->
+        <section id="body-metrics-tracker" class="bg-gray-800/60 backdrop-blur-md rounded-xl shadow-2xl p-6 md:p-8 mb-10 border border-gray-700/50 hidden relative">
+             <button class="back-button absolute top-4 right-6 text-sm text-gray-400 hover:text-gray-100 transition duration-200">&larr; Back to Home</button>
+             <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 border-b-2 border-emerald-500/50 pb-3 mb-8">Body Metrics Tracking</h2>
+            
+             <form id="metrics-form" class="mb-10">
+                 <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Date Input -->
+                    <div class="mb-4">
+                        <label for="metric-date" class="block text-sm font-medium text-emerald-300 mb-2">Date:</label>
+                        <input type="date" id="metric-date" required class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                    
+                    <!-- Weight Input -->
+                    <div class="mb-4">
+                        <label for="metric-weight" class="block text-sm font-medium text-emerald-300 mb-2">Weight (kg/lbs):</label>
+                        <input type="number" id="metric-weight" min="0" step="0.1" class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                    
+                    <!-- Body Fat Input -->
+                    <div class="mb-4">
+                        <label for="metric-bodyfat" class="block text-sm font-medium text-emerald-300 mb-2">Body Fat (%):</label>
+                        <input type="number" id="metric-bodyfat" min="0" max="100" step="0.1" class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                    
+                    <!-- Muscle Mass Input -->
+                    <div class="mb-4">
+                        <label for="metric-musclemass" class="block text-sm font-medium text-emerald-300 mb-2">Muscle Mass (kg/lbs):</label>
+                        <input type="number" id="metric-musclemass" min="0" step="0.1" class="w-full px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-100 placeholder-gray-400">
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="mt-5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-75">
+                    Add Body Metrics
+                </button>
+            </form>
+
+            <!-- Metrics History List -->
+            <h3 class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-5">Metrics History</h3>
+            <div id="metrics-history" class="space-y-4">
+                <!-- Metrics history will be dynamically added here -->
+            </div>
+
+            <!-- Metrics Progress Visualization -->
+            <h3 class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mt-10 mb-5">Progress Visualization</h3>
+            <div class="bg-gray-800/80 rounded-lg shadow-inner p-6 min-h-[450px] border border-gray-700/50">
+                <div class="mb-5 flex items-center gap-4">
+                    <label for="metric-select-chart" class="block text-sm font-medium text-emerald-300">Select Metric:</label>
+                    <select id="metric-select-chart" class="px-4 py-2 bg-gray-700/50 border border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-gray-100">
+                        <option value="weight" class="bg-gray-800">Weight</option>
+                        <option value="bodyfat" class="bg-gray-800">Body Fat %</option>
+                        <option value="musclemass" class="bg-gray-800">Muscle Mass</option>
+                    </select>
+                </div>
+                <canvas id="metrics-chart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900/80 text-gray-400 py-6 mt-12 text-center text-sm">
+        <p>&copy; 2025 Gym Progress Tracker. Keep Pushing!</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
